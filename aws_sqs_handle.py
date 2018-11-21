@@ -42,3 +42,6 @@ print(msg_generate['MessageId'])
 
 # Delete SQS queue
 # sqs.delete_queue(QueueUrl='SQS_QUEUE_URL')
+
+# Deleting a message
+
