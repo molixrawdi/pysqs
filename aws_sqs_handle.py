@@ -43,5 +43,29 @@ print(msg_generate['MessageId'])
 # Delete SQS queue
 # sqs.delete_queue(QueueUrl='SQS_QUEUE_URL')
 
-# Deleting a message
+###### Deleting a message, Key task and requirement ######
+
+# Receive message from SQS queue
+msg_receiver = sqs_c.receive_message(
+    QueueUrl=queue.url,
+    AttributeNames=[
+        'SentTimestamp'
+    ],
+    MaxNumberOfMessages=1,
+    MessageAttributeNames=[
+        'All'
+    ],
+    VisibilityTimeout=0,
+    WaitTimeSeconds=0
+)
+
+message = msg_receiver['Messages'][0]
+receipt_handle = message['ReceiptHandle']
+if message['SentTimestamp'] == input('Please supply sent time stamp'):
+# Delete received message from queue
+  sqs.delete_message(
+    QueueUrl=queue.url,
+    ReceiptHandle=receipt_handle
+  )
+print('Received and deleted message: %s' % message)
 
