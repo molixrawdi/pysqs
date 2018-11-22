@@ -61,7 +61,7 @@ msg_receiver = sqs_c.receive_message(
 
 message = msg_receiver['Messages'][0]
 receipt_handle = message['ReceiptHandle']
-if message['SentTimestamp'] == input('Please supply sent time stamp'):
+if (message['SentTimestamp'] == input('Please supply sent time stamp')):
 # Delete received message from queue
   sqs.delete_message(
     QueueUrl=queue.url,
